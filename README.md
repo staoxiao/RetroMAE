@@ -1,6 +1,5 @@
 # RetroMAE
-Implementation for [RetroMAE: Pre-training Retrieval-oriented Transformers via Masked Auto-Encoder
-](https://arxiv.org/abs/2205.12035). 
+Implementation for [RetroMAE: Pre-Training Retrieval-oriented Language Models Via Masked Auto-Encoder](https://arxiv.org/abs/2205.12035). 
 
 ## Released Models
 We have uploaded some checkpoints to Huggingface Hub. 
