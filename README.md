@@ -10,7 +10,7 @@ We have uploaded some checkpoints to Huggingface Hub.
 |RetroMAE | Pre-trianed on the wikipedia and bookcorpus | [Shitao/RetroMAE](https://huggingface.co/Shitao/RetroMAE) | 
 |RetroMAE_MSMARCO | Pre-trianed on the MSMARCO passage | [Shitao/RetroMAE_MSMARCO](https://huggingface.co/Shitao/RetroMAE_MSMARCO) | 
 |RetroMAE_MSMARCO_finetune |Finetune the RetroMAE_MSMARCO on the MSMARCO passage data | [Shitao/RetroMAE_MSMARCO_finetune](https://huggingface.co/Shitao/RetroMAE_MSMARCO_finetune) | 
-|RetroMAE_MSMARCO_distill | Finetune the RetroMAE on the MSMARCO passage data by minimizing the KL-divergence with the cross-encoder　| coming soon | 
+|RetroMAE_MSMARCO_distill | Finetune the RetroMAE_MSMARCO on the MSMARCO passage data by minimizing the KL-divergence with the cross-encoder　| coming soon | 
 |RetroMAE_BEIR | Finetune the RetroMAE on the MSMARCO passage data for BEIR (use the official negatives provided by BEIR)　| [Shitao/RetroMAE_BEIR](https://huggingface.co/Shitao/RetroMAE_BEIR) | 
 
 You can load them easily using the identifier strings. For example:

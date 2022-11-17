@@ -166,13 +166,6 @@ class BiEncoderModel(nn.Module):
                 student_p = p_reps.view(q_reps.size(0), -1, q_reps.size(-1))  # B N D
                 student_q = q_reps.view(q_reps.size(0), 1, q_reps.size(-1))  # B 1 D
                 student_score = self.compute_similarity(student_q, student_p).squeeze(1)  # B N
-                # print(student_score)
-                # print(student_score / self.temperature)
-                # print(teacher_score)
-                # print('------------------------')
-                # print(torch.softmax(student_score/2, dim=-1))
-                # print(torch.softmax(teacher_score, dim=-1))
-                # print(' --------------------------- ')
 
                 input = F.log_softmax(student_score / self.temperature, dim=-1)
                 target = F.softmax(teacher_score, dim=-1)
@@ -191,9 +184,6 @@ class BiEncoderModel(nn.Module):
             target = target * (p_reps.size(0) // q_reps.size(0))
 
             loss = self.compute_loss(scores, target)
-            # if self.negatives_x_device:
-            #     loss = loss * self.world_size  # counter average weight reduction
-            # print(loss, kl_loss)
             if teacher_score is not None:
                 loss = kl_loss + self.contrastive_loss_weight * loss
 
