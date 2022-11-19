@@ -1,6 +1,11 @@
 # RetroMAE
-Implementation for [RetroMAE: Pre-training Retrieval-oriented Transformers via Masked Auto-Encoder
-](https://arxiv.org/abs/2205.12035). 
+Codebase for **[RetroMAE](https://arxiv.org/abs/2205.12035)** and beyond.
+
+# What's New
+- Oct. 2022, [RetroMAE: Pre-Training Retrieval-oriented Language Models Via
+Masked Auto-Encoder](https://arxiv.org/abs/2205.12035) is accepted to **EMNLP 2022**; SOTA performances on MS MARCO and BEIR from a BERT-base scale dense retriever!
+- Nov. 2022, [RetroMAE v2: Duplex Masked Auto-Encoder For Pre-Training Retrieval-Oriented Language Models](https://arxiv.org/abs/2211.08769) is now on ArXiv. Another big stride forward from v1 and major improvements on MS MARCO and BEIR! Models and code are coming soon!
+
 
 ## Released Models
 We have uploaded some checkpoints to Huggingface Hub. 
