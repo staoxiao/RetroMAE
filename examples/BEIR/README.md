@@ -1,9 +1,9 @@
-# RetroMAE 
+# RetroMAE For BEIR
 
 
 ### Prepare Data
 
-Download the data:
+Download the MSMARCO data:
 ```
 bash get_data.sh
 python preprocess.py  --tokenizer_name bert-base-uncased --max_seq_length 150 --output_dir ./data/BertTokenizer_data
@@ -21,7 +21,7 @@ We provide our checkpoint in huggingface hub: `Shitao/RetroMAE_BEIR`
 You can train your model as following:
 
 ```
-python -m torch.distributed.launch --nproc_per_node {number of gpus}8 \
+python -m torch.distributed.launch --nproc_per_node {number of gpus} \
 -m bi_encoder.run \
 --output_dir retromae_beir \
 --model_name_or_path Shitao/RetroMAE \
@@ -42,7 +42,16 @@ python -m torch.distributed.launch --nproc_per_node {number of gpus}8 \
 --dataloader_num_workers 6 
 ```
 
-
-
+### Test
+The test script is provided by https://github.com/SamuelYang1/SentMAE.
+```
+python beir_test.py \
+--dataset nfcorpus \
+--split test \
+--batch_size 128 \
+--model_name_or_path Shitao/RetroMAE_BEIR \
+--pooling_strategy cls \
+--score_function dot
+```
 
 

@@ -200,13 +200,13 @@ class BiCollator(DataCollatorWithPadding):
 
         q_collated = self.tokenizer.pad(
             query,
-            padding='max_length',
+            padding=True,
             max_length=self.query_max_len,
             return_tensors="pt",
         )
         d_collated = self.tokenizer.pad(
             passage,
-            padding='max_length',
+            padding=True,
             max_length=self.passage_max_len,
             return_tensors="pt",
         )

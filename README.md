@@ -94,7 +94,6 @@ python -m torch.distributed.launch --nproc_per_node 8 \
 --neg_file ./data/train_negs.tsv 
 ```
 
-
 ## Examples
 
 [Pre-train](examples/pretrain/README.md)  
@@ -103,7 +102,7 @@ python -m torch.distributed.launch --nproc_per_node 8 \
 
 
 ## Citation
-If you find our work helpful, please cite us:
+If you find our work helpful, please consider citing us:
 ```
 @inproceedings{RetroMAE,
   title={RetroMAE: Pre-Training Retrieval-oriented Language Models Via Masked Auto-Encoder},
