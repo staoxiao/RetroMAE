@@ -102,6 +102,17 @@ python -m torch.distributed.launch --nproc_per_node 8 \
 [BEIR Benchemark](examples/BEIR/README.md)
 
 
+## Citation
+If you find our work helpful, please cite us:
+```
+@inproceedings{RetroMAE,
+  title={RetroMAE: Pre-Training Retrieval-oriented Language Models Via Masked Auto-Encoder},
+  author={Shitao Xiao, Zheng Liu, Yingxia Shao, Zhao Cao},
+  url={https://arxiv.org/abs/2205.12035},
+  booktitle ={EMNLP},
+  year={2022},
+}
+```
 
 
 

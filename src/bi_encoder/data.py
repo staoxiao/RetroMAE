@@ -145,20 +145,10 @@ class TrainDatasetForBiE(Dataset):
         else:
             negs = random.sample(query_negs, k=self.args.train_group_size - 1)
 
-        if self.teacher_score:
-            passages, teacher_scores = [], []
-            item_scores = [(pos_id, self.teacher_score[qid][pos_id])]
-            for id in negs:
-                item_scores.append((id, self.teacher_score[qid][id]))
-            item_scores.sort(key=lambda x: x[1], reverse=True)
-            for id, score in item_scores:
-                passages.append(self.create_passage_example(id))
-                teacher_scores.append(score)
-        else:
-            for id in negs:
-                passages.append(self.create_passage_example(id))
-                if self.teacher_score:
-                    teacher_scores.append(self.teacher_score[qid][id])
+        for id in negs:
+            passages.append(self.create_passage_example(id))
+            if self.teacher_score:
+                teacher_scores.append(self.teacher_score[qid][id])
 
         return query, passages, teacher_scores
 

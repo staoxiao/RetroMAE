@@ -126,6 +126,7 @@ venv.bak/
 .dmypy.json
 dmypy.json
 Untitled.ipynb
+try.py
 
 # Pyre type checker
 .pyre/
