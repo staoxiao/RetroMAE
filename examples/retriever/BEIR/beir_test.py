@@ -1,16 +1,15 @@
 # Modifyed from BEIR Quick Example (https://github.com/beir-cellar/beir)
 
 import argparse
+import logging
+import os
+import pathlib
 
 from beir import util, LoggingHandler
-from beir.retrieval import models
 from beir.datasets.data_loader import GenericDataLoader
 from beir.retrieval.evaluation import EvaluateRetrieval
 from beir.retrieval.search.dense import DenseRetrievalExactSearch as DRES
 from sentence_transformer_beir import SentenceBERTForBEIR
-
-import logging
-import pathlib, os
 
 
 def main(args):
@@ -31,11 +30,12 @@ def main(args):
 
     #### Load the SBERT model and retrieve using dot-similarity
     model = DRES(SentenceBERTForBEIR(args.model_name_or_path, args.pooling_strategy), batch_size=args.batch_size)
-    retriever = EvaluateRetrieval(model, score_function=args.score_function) # or "cos_sim" for cosine similarity
+    retriever = EvaluateRetrieval(model, score_function=args.score_function)  # or "cos_sim" for cosine similarity
     results = retriever.retrieve(corpus, queries)
 
     #### Evaluate your model with NDCG@k, MAP@K, Recall@K and Precision@K  where k = [1,3,5,10,100,1000]
     ndcg, _map, recall, precision = retriever.evaluate(qrels, results, retriever.k_values)
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
@@ -46,6 +46,6 @@ if __name__ == '__main__':
     parser.add_argument("--model_name_or_path", type=str, help="Model name or path")
     parser.add_argument("--pooling_strategy", type=str, default='cls', help="'mean' or 'cls'")
     parser.add_argument("--score_function", type=str, default="dot",
-        help="Metric used to compute similarity between two embeddings")
+                        help="Metric used to compute similarity between two embeddings")
     args, _ = parser.parse_known_args()
     main(args)

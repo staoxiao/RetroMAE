@@ -2,17 +2,16 @@ import logging
 import os
 from pathlib import Path
 
+from cross_encoder import CETrainer
+from cross_encoder import CrossEncoder
+from cross_encoder.arguments import ModelArguments, DataArguments, \
+    CETrainingArguments as TrainingArguments
+from cross_encoder.data import TrainDatasetForCE, PredictionDatasetForCE, GroupCollator
 from transformers import AutoConfig, AutoTokenizer
 from transformers import (
     HfArgumentParser,
     set_seed,
 )
-
-from cross_encoder import CrossEncoder
-from cross_encoder import CETrainer
-from cross_encoder.arguments import ModelArguments, DataArguments, \
-    CETrainingArguments as TrainingArguments
-from cross_encoder.data import TrainDatasetForCE, PredictionDatasetForCE, GroupCollator
 
 logger = logging.getLogger(__name__)
 
@@ -103,7 +102,6 @@ def main():
 
         if trainer.is_world_process_zero():
             tokenizer.save_pretrained(training_args.output_dir)
-
 
     if training_args.do_predict:
         logging.info("*** Prediction ***")

@@ -4,8 +4,7 @@ from typing import Optional
 import torch
 import torch.distributed as dist
 from torch import nn
-from transformers import AutoModelForSequenceClassification, AutoTokenizer, \
-    PreTrainedModel, PreTrainedTokenizer
+from transformers import AutoModelForSequenceClassification, PreTrainedModel
 from transformers.modeling_outputs import SequenceClassifierOutput
 
 from .arguments import ModelArguments, DataArguments, \
@@ -76,4 +75,3 @@ class CrossEncoder(nn.Module):
         all_tensors = torch.cat(all_tensors, dim=0)
 
         return all_tensors
-

@@ -4,9 +4,8 @@ from dataclasses import dataclass
 
 import torch.utils.data.dataset
 from datasets import Dataset
-from transformers import DataCollatorForWholeWordMask
-
 from pretrain.utils import tensorize_batch
+from transformers import DataCollatorForWholeWordMask
 
 
 class DatasetForPretraining(torch.utils.data.Dataset):

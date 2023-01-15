@@ -34,7 +34,6 @@ class DataArguments:
         default=200, metadata={"help": "max k"}
     )
 
-
     corpus_file: str = field(
         default=None, metadata={"help": "Path to corpus"}
     )

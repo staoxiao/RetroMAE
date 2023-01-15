@@ -8,12 +8,11 @@ from typing import Dict, Optional
 import torch
 import torch.distributed as dist
 import torch.nn.functional as F
+from bi_encoder.arguments import ModelArguments, \
+    RetrieverTrainingArguments as TrainingArguments
 from torch import nn, Tensor
 from transformers import PreTrainedModel, AutoModel
 from transformers.file_utils import ModelOutput
-
-from bi_encoder.arguments import ModelArguments, \
-    RetrieverTrainingArguments as TrainingArguments
 
 logger = logging.getLogger(__name__)
 

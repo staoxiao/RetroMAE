@@ -1,6 +1,7 @@
 import argparse
 import collections
 
+
 def get_args():
     parser = argparse.ArgumentParser()
 
@@ -32,6 +33,3 @@ if __name__ == "__main__":
         for qid, negs in neg_data.items():
             line = f'{qid}\t{",".join(negs)}\n'
             f.write(line)
-
-
-

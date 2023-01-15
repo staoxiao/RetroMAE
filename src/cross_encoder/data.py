@@ -5,11 +5,10 @@ from typing import List, Tuple, Dict
 
 import datasets
 import torch
+from cross_encoder.arguments import DataArguments, CETrainingArguments
 from torch.utils.data import Dataset
 from transformers import DataCollatorWithPadding
 from transformers import PreTrainedTokenizer, BatchEncoding
-
-from cross_encoder.arguments import DataArguments, CETrainingArguments
 
 
 def read_mapping_id(id_file):
@@ -52,6 +51,7 @@ def read_test_file(test_file, prediction_topk):
             test_data.append((line[0], line[1]))
     return test_data
 
+
 def read_neg_from_ranking_file():
     pass
 
@@ -74,7 +74,6 @@ class TrainDatasetForCE(Dataset):
         self.args = args
         self.total_len = len(self.train_qrels)
         self.train_args = train_args
-
 
     def create_one_example(self, qry_encoding: List[int], doc_encoding: List[int]):
         item = self.tokenizer.encode_plus(
@@ -119,7 +118,7 @@ class PredictionDatasetForCE(Dataset):
         self.query_dataset = datasets.Dataset.load_from_disk(args.test_query_file)
         self.corpus_id = read_mapping_id(args.corpus_id_file)
         self.query_id = read_mapping_id(args.test_query_id_file)
-        
+
         self.test_data = read_test_file(args.test_file, args.prediction_topk)
 
         self.tokenizer = tokenizer
@@ -134,7 +133,7 @@ class PredictionDatasetForCE(Dataset):
         qid, pid = self.test_data[item]
         qry = self.query_dataset[self.query_id[qid]]['input_ids']
         psg = self.corpus_dataset[self.corpus_id[pid]]['input_ids']
-        
+
         case = self.tokenizer.encode_plus(
             qry,
             psg,

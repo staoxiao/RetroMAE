@@ -1,5 +1,6 @@
-from transformers.trainer import *
 from torch.cuda.amp import autocast
+from transformers.trainer import *
+
 
 class BiTrainer(Trainer):
     def _save(self, output_dir: Optional[str] = None):

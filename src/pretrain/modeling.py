@@ -1,12 +1,11 @@
 import logging
 
 import torch
+from pretrain.arguments import ModelArguments
+from pretrain.enhancedDecoder import BertLayerForDecoder
 from torch import nn
 from transformers import BertForMaskedLM, AutoModelForMaskedLM
 from transformers.modeling_outputs import MaskedLMOutput
-
-from pretrain.arguments import ModelArguments
-from pretrain.enhancedDecoder import BertLayerForDecoder
 
 logger = logging.getLogger(__name__)
 

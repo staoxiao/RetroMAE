@@ -3,17 +3,16 @@ import os
 from pathlib import Path
 
 import numpy as np
-from transformers import AutoConfig, AutoTokenizer
-from transformers import (
-    HfArgumentParser,
-    set_seed,
-)
-
 from bi_encoder import BiEncoderModel
 from bi_encoder import BiTrainer
 from bi_encoder.arguments import ModelArguments, DataArguments, \
     RetrieverTrainingArguments as TrainingArguments
 from bi_encoder.data import TrainDatasetForBiE, PredictionDataset, BiCollator, PredictionCollator
+from transformers import AutoConfig, AutoTokenizer
+from transformers import (
+    HfArgumentParser,
+    set_seed,
+)
 
 logger = logging.getLogger(__name__)
 

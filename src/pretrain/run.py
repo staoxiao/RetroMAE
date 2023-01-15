@@ -3,6 +3,10 @@ import os
 import sys
 
 import transformers
+from pretrain.arguments import DataTrainingArguments, ModelArguments
+from pretrain.data import DatasetForPretraining, RetroMAECollator
+from pretrain.modeling import RetroMAEForPretraining
+from pretrain.trainer import PreTrainer
 from transformers import (
     AutoTokenizer,
     BertForMaskedLM,
@@ -15,11 +19,6 @@ from transformers import (
     TrainerControl
 )
 from transformers.trainer_utils import is_main_process
-
-from pretrain.arguments import DataTrainingArguments, ModelArguments
-from pretrain.data import DatasetForPretraining, RetroMAECollator
-from pretrain.modeling import RetroMAEForPretraining
-from pretrain.trainer import PreTrainer
 
 logger = logging.getLogger(__name__)
 

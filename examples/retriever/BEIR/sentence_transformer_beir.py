@@ -11,8 +11,10 @@ from sentence_transformers.util import snapshot_download
 
 logger = logging.getLogger(__name__)
 
+
 class SentenceTransformerForBEIR(SentenceTransformer):
-    def __init__(self, model_name_or_path: Optional[str] = None, pooling_strategy: Optional[str] = None, modules: Optional[Iterable[nn.Module]] = None,
+    def __init__(self, model_name_or_path: Optional[str] = None, pooling_strategy: Optional[str] = None,
+                 modules: Optional[Iterable[nn.Module]] = None,
                  device: Optional[str] = None, cache_folder: Optional[str] = None):
         self._model_card_vars = {}
         self._model_card_text = None
@@ -86,7 +88,7 @@ class SentenceTransformerForBEIR(SentenceTransformer):
             if os.path.exists(os.path.join(model_path, 'modules.json')):  # Load as SentenceTransformer model
                 modules = self._load_sbert_model(model_path)
             else:  # Load with AutoModel
-                modules = self._load_auto_model(model_path,pooling_strategy)
+                modules = self._load_auto_model(model_path, pooling_strategy)
 
         if modules is not None and not isinstance(modules, OrderedDict):
             modules = OrderedDict([(str(idx), module) for idx, module in enumerate(modules)])
@@ -97,7 +99,6 @@ class SentenceTransformerForBEIR(SentenceTransformer):
             logger.info("Use pytorch device: {}".format(device))
 
         self._target_device = torch.device(device)
-
 
     def _load_auto_model(self, model_name_or_path, pooling_strategy):
         """
@@ -110,8 +111,10 @@ class SentenceTransformerForBEIR(SentenceTransformer):
         pooling_model = Pooling(transformer_model.get_word_embedding_dimension(), pooling_strategy)
         return [transformer_model, pooling_model]
 
+
 class SentenceBERTForBEIR(SentenceBERT):
-    def __init__(self, model_path: Union[str, Tuple] = None, pooling_strategy: Optional[str] = None, sep: str = " ", **kwargs):
+    def __init__(self, model_path: Union[str, Tuple] = None, pooling_strategy: Optional[str] = None, sep: str = " ",
+                 **kwargs):
         self.sep = sep
 
         if isinstance(model_path, str):
