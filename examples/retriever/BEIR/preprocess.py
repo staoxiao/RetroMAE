@@ -74,11 +74,11 @@ if __name__ == '__main__':
     train_query = load_dataset('json', data_files='./data/train.query.json', split='train')
     train_query = train_query.map(tokenize_function, num_proc=8, remove_columns=["text"], batched=True)
     train_query.save_to_disk(os.path.join(args.output_dir, 'train_query'))
-    print('train query dataset:', corpus)
+    print('train query dataset:', train_query)
 
     save_to_json('./data/dev.query.txt', './data/dev.query.json',
                  os.path.join(args.output_dir, 'dev_query/mapping_id.txt'))
     dev_query = load_dataset('json', data_files='./data/dev.query.json', split='train')
     dev_query = dev_query.map(tokenize_function, num_proc=8, remove_columns=["text"], batched=True)
     dev_query.save_to_disk(os.path.join(args.output_dir, 'dev_query'))
-    print('dev query dataset:', corpus)
+    print('dev query dataset:', dev_query)

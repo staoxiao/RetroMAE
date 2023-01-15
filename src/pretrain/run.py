@@ -17,7 +17,7 @@ from transformers import (
 from transformers.trainer_utils import is_main_process
 
 from pretrain.arguments import DataTrainingArguments, ModelArguments
-from pretrain.data_handler import DatasetForPretraining, RetroMAECollator
+from pretrain.data import DatasetForPretraining, RetroMAECollator
 from pretrain.modeling import RetroMAEForPretraining
 from pretrain.trainer import PreTrainer
 

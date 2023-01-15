@@ -42,16 +42,6 @@ def read_neg_file(neg_file):
     return neg_data
 
 
-def read_test_file(test_file, prediction_topk):
-    test_data = []
-    for line in open(test_file, encoding='utf-8'):
-        line = line.strip('\n').split('\t')
-        rank = int(line[-1])
-        if rank <= prediction_topk:
-            test_data.append((line[0], line[1]))
-    return test_data
-
-
 def read_teacher_score(score_files):
     teacher_score = collections.defaultdict(dict)
     for file in score_files.split(','):
@@ -66,7 +56,6 @@ def read_teacher_score(score_files):
 
 
 def generate_random_neg(qids, pids, k=30):
-    print(len(qids), len(pids))
     qid_negatives = {}
     for q in qids:
         negs = random.sample(pids, k)

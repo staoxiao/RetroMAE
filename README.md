@@ -96,9 +96,14 @@ python -m torch.distributed.launch --nproc_per_node 8 \
 
 ## Examples
 
-[Pre-train](examples/pretrain/README.md)  
-[Finetune on MSMARCO Passage](examples/msmarco/README.md)  
-[BEIR Benchemark](examples/BEIR/README.md)
+- Pre-train  
+    - [Pre-train on Wikipedia](examples/pretrain/README.md) 
+    - [Pre-train on MSMARCO Passage](examples/pretrain/README.md) 
+- Bi-encoder
+    - [Finetune on MSMARCO Passage](examples/retriever/msmarco/README.md)  
+    - [BEIR Benchemark](examples/retriever/BEIR/README.md)
+- Cross-encoder
+    - [Reranker on MSMARCO Passage](examples/reranker/README.md)
 
 
 ## Citation
