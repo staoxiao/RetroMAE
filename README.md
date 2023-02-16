@@ -52,6 +52,8 @@ Besides, It substantially improves the pre-trained model's transferability, whic
 | Bert         | 0.371 | 
 | Condenser       | 0.407 | 
 | RetroMAE       | **0.452** | 
+| RetroMAE v2      | **0.491** | 
+
 
 ## Installation
 ```
