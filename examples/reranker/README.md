@@ -35,8 +35,8 @@ python -m torch.distributed.launch --nproc_per_node 8 \
 --num_train_epochs 4 \
 --do_predict  \
 --test_query_file ./data/DebertaTokenizer_data/dev_query \
---test_file {ranked results provied by retriever} \
---prediction_save_path rerank_score.txt \
+--test_file {ranked results of dev queries provided by retriever} \
+--prediction_save_path dev_rerank_score.txt \
 --prediction_topk 300 \
 --dataloader_num_workers 6 
 ```
@@ -46,21 +46,21 @@ There are two files need to set with different bi-encoder in the first stage:
 Following [this](../retriever/msmarco/README.md) to generate this file for `Shitao/RetroMAE_MSMARCO_finetune` or your bi-encoder.
 
 - `test_file`: The rank results of bi-encoder.
-Following the [test.py](../retriever/msmarco/README.md) to generate ranking_file for `Shitao/RetroMAE_MSMARCO_finetune` or your bi-encoder.
+Following the [test.py](../retriever/msmarco/README.md) to generate ranking_file for dev queries with model `Shitao/RetroMAE_MSMARCO_finetune` or your bi-encoder.
 
 
 
 ### Test
 ```
 python test.py \
---score_file rerank_score.txt \
+--score_file dev_rerank_score.txt \
 --qrels_file ./data/qrels.dev.tsv
 ```
 
 ### Prediction for Knowledge Distillation 
 Train the bi-encoder to learn from the predicted scores of cross-encoder can improve the its performance.
-Besides the rerank score for ranking results of bi-encoder, 
-the scores for positive pairs also need to be predict (avoid some positive passages not be retrieved by bi-encoder).
+Besides the rerank score for ranking results of train queries (), 
+the scores for positive pairs (`./data/train_qrels.txt`) also need to be predict (avoid some positive passages not be retrieved by bi-encoder).
 ```
 python -m torch.distributed.launch --nproc_per_node 8 \
 -m cross_encoder.run \
@@ -70,9 +70,9 @@ python -m torch.distributed.launch --nproc_per_node 8 \
 --corpus_file ./data/DebertaTokenizer_data/corpus \
 --max_len 200 \
 --do_predict  \
---test_query_file ./data/DebertaTokenizer_data/dev_query \
---test_file ./data/train_qrels.txt \
---prediction_save_path qrels_score.txt \
+--test_query_file ./data/DebertaTokenizer_data/train_query \
+--test_file {./data/train_qrels.txt and ranked results of train queries} \
+--prediction_save_path train_qrels_score.txt \
 --dataloader_num_workers 6 
 ```
-Then, set `--teacher_score_files qrels_score.txt,rerank_score.txt` to enable the knowledge distillation in [bi-encoder training](../retriever/msmarco/README.md).
+Then, set `--teacher_score_files train_qrels_score.txt,train_rerank_score.txt` to enable the knowledge distillation in [bi-encoder training](../retriever/msmarco/README.md).
