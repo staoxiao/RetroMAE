@@ -59,8 +59,8 @@ python test.py \
 
 ### Prediction for Knowledge Distillation 
 Train the bi-encoder to learn from the predicted scores of cross-encoder can improve the its performance.
-Besides the rerank score for ranking results of train queries (), 
-the scores for positive pairs (`./data/train_qrels.txt`) also need to be predict (avoid some positive passages not be retrieved by bi-encoder).
+Besides the rerank score for ranking results of train queries, 
+the scores for positive pairs also need to be predicted (avoid some positive passages not be retrieved by bi-encoder).
 ```
 python -m torch.distributed.launch --nproc_per_node 8 \
 -m cross_encoder.run \
@@ -71,8 +71,21 @@ python -m torch.distributed.launch --nproc_per_node 8 \
 --max_len 200 \
 --do_predict  \
 --test_query_file ./data/DebertaTokenizer_data/train_query \
---test_file {./data/train_qrels.txt and ranked results of train queries} \
+--test_file ./data/train_qrels.txt \
 --prediction_save_path train_qrels_score.txt \
+--dataloader_num_workers 6 
+
+python -m torch.distributed.launch --nproc_per_node 8 \
+-m cross_encoder.run \
+--output_dir {path to save model} \
+--model_name_or_path {reranker model} \
+--fp16  \
+--corpus_file ./data/DebertaTokenizer_data/corpus \
+--max_len 200 \
+--do_predict  \
+--test_query_file ./data/DebertaTokenizer_data/train_query \
+--test_file {ranked results of train queries} \
+--prediction_save_path train_rerank_score.txt \
 --dataloader_num_workers 6 
 ```
 Then, set `--teacher_score_files train_qrels_score.txt,train_rerank_score.txt` to enable the knowledge distillation in [bi-encoder training](../retriever/msmarco/README.md).
