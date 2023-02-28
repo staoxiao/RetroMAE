@@ -175,8 +175,7 @@ class BiEncoderModel(nn.Module):
                 p_reps = self._dist_gather_tensor(p_reps)
 
             scores = self.compute_similarity(q_reps, p_reps)
-            if self.temperature < 1:
-                scores = scores / self.temperature
+            scores = scores / self.temperature
             scores = scores.view(q_reps.size(0), -1)
 
             target = torch.arange(scores.size(0), device=scores.device, dtype=torch.long)
