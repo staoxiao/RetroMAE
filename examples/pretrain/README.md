@@ -12,6 +12,8 @@ python preprocess.py --data bert_data --tokenizer_name bert-base-uncased --outpu
 This script will download and preprocess the dataset (wikipedia and bookcorpus), and then save them to `output_dir`.
 
 ### Pre-train
+You can choose the pretrain method `retromae` or `dupmae` by argument `--pretrain_method`.
+
 
 ```
 python -m torch.distributed.launch --nproc_per_node {number of gpus} \
@@ -22,6 +24,7 @@ python -m torch.distributed.launch --nproc_per_node {number of gpus} \
   --save_steps 20000 \
   --per_device_train_batch_size 32 \
   --model_name_or_path bert-base-uncased \
+  --pretrain_method retromae \
   --fp16 True \
   --warmup_ratio 0.1 \
   --learning_rate 1e-4 \

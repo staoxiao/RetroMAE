@@ -80,7 +80,8 @@ python -m torch.distributed.launch --nproc_per_node 8 \
   --output_dir {path to save ckpt} \
   --data_dir {your data} \
   --do_train True \
-  --model_name_or_path bert-base-uncased 
+  --model_name_or_path bert-base-uncased \
+  --pretrain_method {retromae or dupmae}
 ```
 
 ### Finetune
