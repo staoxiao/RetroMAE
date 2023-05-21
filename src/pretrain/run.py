@@ -4,8 +4,9 @@ import sys
 
 import transformers
 from pretrain.arguments import DataTrainingArguments, ModelArguments
-from pretrain.data import DatasetForPretraining, RetroMAECollator
+from pretrain.data import DatasetForPretraining, RetroMAECollator, DupMAECollator
 from pretrain.modeling import RetroMAEForPretraining
+from pretrain.modeling_duplex import DupMAEForPretraining
 from pretrain.trainer import PreTrainer
 from transformers import (
     AutoTokenizer,
@@ -85,21 +86,30 @@ def main():
 
     set_seed(training_args.seed)
 
+    if model_args.pretrain_method == 'retromae':
+        model_class = RetroMAEForPretraining
+        collator_class = RetroMAECollator
+    elif model_args.pretrain_method == 'dupmae':
+        model_class = DupMAEForPretraining
+        collator_class = DupMAECollator
+    else:
+        raise NotImplementedError
+
     if model_args.model_name_or_path:
-        model = RetroMAEForPretraining.from_pretrained(model_args, model_args.model_name_or_path)
+        model = model_class.from_pretrained(model_args, model_args.model_name_or_path)
         logger.info(f"------Load model from {model_args.model_name_or_path}------")
         tokenizer = AutoTokenizer.from_pretrained(model_args.model_name_or_path)
     elif model_args.config_name:
         config = AutoConfig.from_pretrained(model_args.config_name)
         bert = BertForMaskedLM(config)
-        model = RetroMAEForPretraining(bert, model_args)
+        model = model_class(bert, model_args)
         logger.info("------Init the model------")
         tokenizer = AutoTokenizer.from_pretrained(data_args.tokenizer_name)
     else:
         raise ValueError("You must provide the model_name_or_path or config_name")
 
     dataset = DatasetForPretraining(data_args.data_dir)
-    data_collator = RetroMAECollator(tokenizer,
+    data_collator = collator_class(tokenizer,
                                      encoder_mlm_probability=data_args.encoder_mlm_probability,
                                      decoder_mlm_probability=data_args.decoder_mlm_probability,
                                      max_seq_length=data_args.max_seq_length)
