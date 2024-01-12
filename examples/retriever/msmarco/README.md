@@ -22,7 +22,7 @@ You can download our checkpoint in huggingface hub: `shitao/RetroMAE_MSMARCO_fin
 You also can finetune your model as following:
 
 ```
-python -m torch.distributed.launch --nproc_per_node {number of gpus} \
+torchrun --nproc_per_node 8 \
 -m bi_encoder.run \
 --output_dir {path to save model} \
 --model_name_or_path Shitao/RetroMAE_MSMARCO \
@@ -51,7 +51,7 @@ Besides, you also can set `teacher_score_files` to use distill the knowledge fro
 ### Inference
 Generate the embeddings of passages and save to `results/passage_reps`:
 ```
-python -m torch.distributed.launch --nproc_per_node {number of gpus} \
+torchrun --nproc_per_node 8 \
 -m bi_encoder.run \
 --output_dir retromae_msmarco_passage_fintune \
 --model_name_or_path Shitao/RetroMAE_MSMARCO_finetune  \
@@ -67,7 +67,7 @@ python -m torch.distributed.launch --nproc_per_node {number of gpus} \
 
 Generate the embeddings of passages and save to `results/query_reps`:
 ```
-python -m torch.distributed.launch --nproc_per_node {number of gpus} \
+torchrun --nproc_per_node 8 \
 -m bi_encoder.run \
 --output_dir retromae_msmarco_passage_fintune \
 --model_name_or_path Shitao/RetroMAE_MSMARCO_finetune \

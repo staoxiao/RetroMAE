@@ -7,7 +7,7 @@ setup(
     packages=find_packages("src"),
     install_requires=[
         'torch>=1.6.0',
-        'transformers>=4.18.0',
+        'transformers==4.34.0',
         'datasets==1.18.3',
         'faiss-gpu>=1.6'
     ],

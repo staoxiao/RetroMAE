@@ -16,7 +16,7 @@ You can choose the pretrain method `retromae` or `dupmae` by argument `--pretrai
 
 
 ```
-python -m torch.distributed.launch --nproc_per_node {number of gpus} \
+torchrun --nproc_per_node 8 \
   -m  pretrain.run \
   --output_dir {path to save model} \
   --data_dir {preprocessed data, e.g., pretrain_data/bert_data} \
@@ -50,7 +50,7 @@ python preprocess.py --data msmarco_passage --tokenizer_name bert-base-uncased -
 ### Pre-train
 
 ```
-python -m torch.distributed.launch --nproc_per_node {number of gpus} \
+torchrun --nproc_per_node 8 \
   -m  pretrain.run \
   --output_dir {path to save model} \
   --data_dir {preprocessed data, e.g., pretrain_data/msmarco_passage} \

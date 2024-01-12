@@ -21,7 +21,7 @@ We provide our checkpoint in huggingface hub: `Shitao/RetroMAE_BEIR`
 You can train your model as following:
 
 ```
-python -m torch.distributed.launch --nproc_per_node {number of gpus} \
+torchrun --nproc_per_node 8 \
 -m bi_encoder.run \
 --output_dir retromae_beir \
 --model_name_or_path Shitao/RetroMAE \

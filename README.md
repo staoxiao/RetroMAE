@@ -75,7 +75,7 @@ This repo includes two functions: pre-train and finetune. Firstly, train the Ret
 
 ### Pretrain
 ```
-python -m torch.distributed.launch --nproc_per_node 8 \
+torchrun --nproc_per_node 8 \
   -m pretrain.run \
   --output_dir {path to save ckpt} \
   --data_dir {your data} \
@@ -86,7 +86,7 @@ python -m torch.distributed.launch --nproc_per_node 8 \
 
 ### Finetune
 ```
-python -m torch.distributed.launch --nproc_per_node 8 \
+torchrun --nproc_per_node 8 \
 -m bi_encoder.run \
 --output_dir {path to save ckpt} \
 --model_name_or_path Shitao/RetroMAE \

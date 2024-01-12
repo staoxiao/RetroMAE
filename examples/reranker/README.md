@@ -15,7 +15,7 @@ python preprocess.py  --tokenizer_name microsoft/deberta-v3-base --max_seq_lengt
 ### Train and Inference
 The following script will train the reranker and predict the scores for `test_file` (the result will be saved to `rerank_score.txt`):
 ```
-python -m torch.distributed.launch --nproc_per_node 8 \
+torchrun --nproc_per_node 8 \
 -m cross_encoder.run \
 --output_dir {path to save model} \
 --model_name_or_path microsoft/deberta-v3-base \
@@ -62,7 +62,7 @@ Train the bi-encoder to learn from the predicted scores of cross-encoder can imp
 Besides the rerank score for ranking results of train queries, 
 the scores for positive pairs also need to be predicted (avoid some positive passages not be retrieved by bi-encoder).
 ```
-python -m torch.distributed.launch --nproc_per_node 8 \
+torchrun --nproc_per_node 8 \
 -m cross_encoder.run \
 --output_dir {path to save model} \
 --model_name_or_path {reranker model} \
@@ -75,7 +75,7 @@ python -m torch.distributed.launch --nproc_per_node 8 \
 --prediction_save_path train_qrels_score.txt \
 --dataloader_num_workers 6 
 
-python -m torch.distributed.launch --nproc_per_node 8 \
+torchrun --nproc_per_node 8 \
 -m cross_encoder.run \
 --output_dir {path to save model} \
 --model_name_or_path {reranker model} \
